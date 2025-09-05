@@ -62,22 +62,3 @@ export const getAllPosts = async (req, res) => {
     }
 }
 
-export const generateImage = async (req, res) => { 
-
-    try {
-        const { prompt } = req.body;
-        const response = await openai.createImage({
-            prompt,
-            n: 1,
-            size: "1024x1024",
-            format: "b64json"
-        });
-
-        const generatedImage = response.data[0].b64_json;
-        res.status(200).send({ status: "success", data: generatedImage });
-
-    } catch (err) {
-        console.log(err)
-        res.status(500).send({ status: "error", message: 'Something went wrong' })
-    }
-}
